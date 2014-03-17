@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *DisplayField;
 
+- (void) operandPressed:(NSString*) op;
+
 - (IBAction)Zero:(id)sender;
 - (IBAction)One:(id)sender;
 - (IBAction)Two:(id)sender;
@@ -31,7 +33,7 @@
 - (IBAction)Equals:(id)sender;
 - (IBAction)Clear:(id)sender;
 
-- (void) testing;
+//- (void) testing;
 
 
 @end

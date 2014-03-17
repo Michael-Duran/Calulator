@@ -64,6 +64,8 @@ static CalculatorEngine* _mainCalculator;
         _mainCalculator.previousOperand = _mainCalculator.currentOperand;
         _mainCalculator.valueToDisplay = _mainCalculator.previousOperand;
     }
+    
+    NSLog(@"value to display: %@", _mainCalculator.valueToDisplay);
 }
 
 - (NSString*) getDisplayValue{
