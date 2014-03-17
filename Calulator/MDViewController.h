@@ -10,4 +10,28 @@
 
 @interface MDViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITextField *DisplayField;
+
+- (IBAction)Zero:(id)sender;
+- (IBAction)One:(id)sender;
+- (IBAction)Two:(id)sender;
+- (IBAction)Three:(id)sender;
+- (IBAction)Four:(id)sender;
+- (IBAction)Five:(id)sender;
+- (IBAction)Six:(id)sender;
+- (IBAction)Seven:(id)sender;
+- (IBAction)Eight:(id)sender;
+- (IBAction)Nine:(id)sender;
+- (IBAction)Decimal:(id)sender;
+
+- (IBAction)Plus:(id)sender;
+- (IBAction)Minus:(id)sender;
+- (IBAction)Multiply:(id)sender;
+- (IBAction)Divide:(id)sender;
+- (IBAction)Equals:(id)sender;
+- (IBAction)Clear:(id)sender;
+
+- (void) testing;
+
+
 @end
