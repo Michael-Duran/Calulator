@@ -11,6 +11,7 @@
 
 @implementation MDViewController
 
+CalculatorEngine* calculation;
 bool overWriteDisplay = FALSE;
 
 - (void)viewDidLoad
@@ -29,7 +30,8 @@ bool overWriteDisplay = FALSE;
 @synthesize DisplayField;
 
 // This is a generalized function to try to reduce the amount of code in each
-// button.
+// button. Since each number button contained roughly the same code, this
+// function is used for all operand buttons.
 - (void) operandPressed:(NSString*) op{
     if(overWriteDisplay || ((DisplayField.text.length == 1) && [DisplayField.text isEqualToString:@"0"])){
         DisplayField.text = op;
@@ -38,39 +40,38 @@ bool overWriteDisplay = FALSE;
         DisplayField.text = [DisplayField.text stringByAppendingString:op];
 }
 
-//===== Operands =====
+// Generalized function that reduces code needed for each operator that is
+// pressed.
+- (void) operatorPressed:(NSString*) sign{
+    calculation = [CalculatorEngine mainCalculator];
+    
+    // Pass operator and operand
+    [calculation setOperand:DisplayField.text];
+    [calculation setOperator:sign];
+    
+    // perform calculations
+    [calculation calculate];
+    
+    // update display
+    DisplayField.text = [calculation getDisplayValue];
+    
+    // set overwrite true. after operator is pressed, it will erase the screen
+    // and fill it with the next input operands.
+    overWriteDisplay = TRUE;
+}
+
+//===== Operands ===============================================================
 
 - (IBAction)Zero:(id)sender {
     [self operandPressed: @"0"];
-    /*
-    if(overWriteDisplay || ((DisplayField.text.length == 1) && [DisplayField.text isEqualToString:@"0"])){
-        DisplayField.text = @"0";
-        overWriteDisplay = FALSE;
-    }else
-        DisplayField.text = [DisplayField.text stringByAppendingString:@"0"];
-     */
 }
 
 - (IBAction)One:(id)sender {
     [self operandPressed: @"1"];
-    /*
-    if(overWriteDisplay || ((DisplayField.text.length == 1) && [DisplayField.text isEqualToString:@"0"])){
-        DisplayField.text = @"1";
-        overWriteDisplay = FALSE;
-    }else
-        DisplayField.text = [DisplayField.text stringByAppendingString:@"1"];
-     */
 }
 
 - (IBAction)Two:(id)sender {
     [self operandPressed: @"2"];
-    /*
-    if(overWriteDisplay || ((DisplayField.text.length == 1) && [DisplayField.text isEqualToString:@"0"])){
-        DisplayField.text = @"2";
-        overWriteDisplay = FALSE;
-    }else
-        DisplayField.text = [DisplayField.text stringByAppendingString:@"2"];
-     */
 }
 
 - (IBAction)Three:(id)sender {
@@ -105,103 +106,30 @@ bool overWriteDisplay = FALSE;
     [self operandPressed: @"."];
 }
 
-//===== Operators =====
-CalculatorEngine* calculation;
+//===== Operators ==============================================================
+
 
 - (IBAction)Plus:(id)sender {
-    
-    calculation = [CalculatorEngine mainCalculator];
-    
-    // Pass operator and operand
-    [calculation setOperand:DisplayField.text];
-    [calculation setOperator:@"+"];
-    
-    // perform calculations
-    [calculation calculate];
-    
-    // update display
-    DisplayField.text = [calculation getDisplayValue];
-    
-    // set overwrite true. after operator is pressed, it will erase the screen
-    // and fill it with the next input operands.
-    overWriteDisplay = TRUE;
+    [self operatorPressed:@"+"];
 }
 
 - (IBAction)Minus:(id)sender {
-    
-    calculation = [CalculatorEngine mainCalculator];
-    
-    // Pass operator and operand
-    [calculation setOperand:DisplayField.text];
-    [calculation setOperator:@"-"];
-    
-    // perform calculations
-    [calculation calculate];
-    
-    // update display
-    DisplayField.text = [calculation getDisplayValue];
-    
-    // set overwrite true. after operator is pressed, it will erase the screen
-    // and fill it with the next input operands.
-    overWriteDisplay = TRUE;
+    [self operatorPressed:@"-"];
 }
 
 - (IBAction)Multiply:(id)sender {
-    
-    calculation = [CalculatorEngine mainCalculator];
-    
-    // Pass operator and operand
-    [calculation setOperand:DisplayField.text];
-    [calculation setOperator:@"*"];
-    
-    // perform calculations
-    [calculation calculate];
-    
-    // update display
-    DisplayField.text = [calculation getDisplayValue];
-    
-    // set overwrite true. after operator is pressed, it will erase the screen
-    // and fill it with the next input operands.
-    overWriteDisplay = TRUE;
+    [self operatorPressed:@"*"];
 }
 
 - (IBAction)Divide:(id)sender {
-    
-    calculation = [CalculatorEngine mainCalculator];
-    
-    // Pass operator and operand
-    [calculation setOperand:DisplayField.text];
-    [calculation setOperator:@"/"];
-    
-    // perform calculations
-    [calculation calculate];
-    
-    // update display
-    DisplayField.text = [calculation getDisplayValue];
-    
-    // set overwrite true. after operator is pressed, it will erase the screen
-    // and fill it with the next input operands.
-    overWriteDisplay = TRUE;
+    [self operatorPressed:@"/"];
 }
 
 - (IBAction)Equals:(id)sender {
-    
-    calculation = [CalculatorEngine mainCalculator];
-    
-    // Pass operator and operand
-    [calculation setOperand:DisplayField.text];
-    [calculation setOperator:@"="];
-    
-    // perform calculations
-    [calculation calculate];
-    
-    // update display
-    DisplayField.text = [calculation getDisplayValue];
-    
-    // set overwrite true. after operator is pressed, it will erase the screen
-    // and fill it with the next input operands.
-    overWriteDisplay = TRUE;
+    [self operatorPressed:@"="];
 }
+
+
 
 - (IBAction)Clear:(id)sender {
     //Clear display
@@ -211,6 +139,4 @@ CalculatorEngine* calculation;
     [calculation clear];
 }
 
-
- 
 @end

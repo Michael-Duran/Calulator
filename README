@@ -1,0 +1,26 @@
+Programmer:		Michael Duran
+File:			Calculator
+Class:			CPSC 411 Mobile Application Design
+Assignment:		3
+Due Date:		March 17, 2014
+IDE:			Xcode 5
+Language: 		Objective-C
+Last Update:	March 17, 2014
+
+Description:	This is a simple calculator application that performs basic 
+				calculator functions (add, subtract, multiply, divide). It 
+				calculates with an accuracy of 8 digits past the decimal place. 
+
+Status:			This application runs with no known errors, but has not 
+				been extensively tested for bugs. 
+
+Technical:		The View Controller determines if a number (operand) or function
+				(operator) is pressed and determines which action to take. 
+				- If a only numbers are pressed, only the view is updated and no
+					calls to a class are made.
+				- Once an operator is pressed, it sends the current number on 
+					the display and the operator to a class that calculates 
+					the running total (if there are previous inputs) or just 
+					updates the display.
+				- The display is then  updated, either way, to reflect the 
+					current values.  
